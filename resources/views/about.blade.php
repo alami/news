@@ -6,5 +6,6 @@
 </head>
 <body>
 <h1>About Page</h1>
+<a href="{{ route('about.page') }}"> themself link </a>
 </body>
 </html>

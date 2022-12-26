@@ -22,5 +22,5 @@ Route::get('/', function () {
 });*/
 //Route::get('/about', [DemoController::class, 'Index']);
 Route::controller(DemoController::class)->group(function (){
-    Route::get('/about', 'Index');
+    Route::get('/about', 'Index') -> name('about.page') -> middleware('check');
 });
