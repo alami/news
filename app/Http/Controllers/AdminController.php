@@ -11,12 +11,11 @@ class AdminController extends Controller
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
-        return redirect('/login');
+        $notification = array('message' => 'User Logout Successfully',
+            'alert-type' => 'success');
+        return redirect('/login')->with($notification);
     }
     public function Profile () {
         $id = Auth::user()->id;
