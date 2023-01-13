@@ -10,8 +10,10 @@
                         <div class="card-body">
 
                             <h4 class="card-title">Home Slide Page</h4>
-                            <FORM method="POST" action="{{ route('store.profile') }}" enctype="multipart/form-data">
+                            <FORM method="POST" action="{{ route('update.slider') }}"
+                                  enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $homeslide->id }}">
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Title</label>
                                     <div class="col-sm-10">
@@ -23,7 +25,7 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Short Title</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="short_title" type="email"
+                                        <input class="form-control" name="short_title" type="text"
                                                id="email" value="{{ $homeslide->short_title }}">
                                     </div>
                                 </div>
@@ -31,7 +33,7 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Video URL</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="video_url" type="email"
+                                        <input class="form-control" name="video_url" type="text"
                                                id="email" value="{{ $homeslide->video_url }}">
                                     </div>
                                 </div>
@@ -50,7 +52,7 @@
                                         <img id="showImage" class="rounded avatar-lg"
                                              src="{{
                                             (!empty($homeslide->home_slide))?
-                                              url('upload/home_slide/'.$homeslide->home_slide):
+                                              url($homeslide->home_slide):
                                               url('upload/no_image.jpg')
                                         }}" alt="Card image cap">
                                     </div>
