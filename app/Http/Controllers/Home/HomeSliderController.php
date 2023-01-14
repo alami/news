@@ -20,7 +20,7 @@ class HomeSliderController extends Controller
             $name_gen = hexdec(uniqid('', false))
                 . '.' . $image->getClientOriginalExtension();
             $save_url = 'upload/home_slide/'.$name_gen;
-            Image::make($image)->resize(600,600)->save($save_url);
+            Image::make($image)->resize(636,852)->save($save_url);
             HomeSlide::findOrFail($slide_id)->update([
                  'title'=>$request->title,
                  'short_title'=>$request->short_title,
