@@ -67,5 +67,8 @@ class AboutController extends Controller
                 'alert-type' => 'success');
         return redirect()->back()->with($notification);
     }
-
+    public function AllMultiImage() {
+        $allMultiImage = MultiImage::all();
+        return view('admin.about_page.all_multiimage',compact('allMultiImage'));
+    }
 }
