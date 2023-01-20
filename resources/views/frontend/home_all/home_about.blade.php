@@ -8,9 +8,9 @@
             <div class="col-lg-6">
                 <ul class="about__icons__wrap">
                     @foreach($allMultiImage as $item)
-                    <li>
-                        <img class="light" src="{{ asset($item->multi_image) }}" alt="multi_image">
-                    </li>
+                        <li>
+                            <img class="light" src="{{ asset($item->multi_image) }}" alt="multi_image">
+                        </li>
                     @endforeach
                 </ul>
             </div>
