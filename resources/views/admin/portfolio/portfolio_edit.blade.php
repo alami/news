@@ -9,15 +9,16 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Portfolio Add Page</h4>
-                            <FORM method="POST" action="{{ route('store.portfolio') }}"
+                            <h4 class="card-title">Portfolio Edit Page</h4>
+                            <FORM method="POST" action="{{ route('update.portfolio') }}"
                                   enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $portfolio->id }}">
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Portfolio name</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" name="portfolio_name" type="text"
-                                               id="title" value="">
+                                               id="title" value="{{ $portfolio->portfolio_name }}">
                                         @error('portfolio_name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -28,7 +29,7 @@
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Portfolio title</label>
                                     <div class="col-sm-10">
                                         <input class="form-control" name="portfolio_title" type="text"
-                                               id="title" value="">
+                                               id="title" value="{{ $portfolio->portfolio_title }}">
                                         @error('portfolio_title')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -38,7 +39,7 @@
                                 <div class="row mb-3">
                                     <label for="example-text-input" class="col-sm-2 col-form-label">Portfolio Description</label>
                                     <div class="col-sm-10">
-                                        <textarea id="elm1" name="portfolio_description"></textarea>
+                                        <textarea id="elm1" name="portfolio_description"> {{ $portfolio->portfolio_description  }}</textarea>
                                     </div>
                                 </div>
                                 <!-- end row -->
@@ -57,11 +58,15 @@
                                     <label for="example-text-input" class="col-sm-2 col-form-label"> </label>
                                     <div class="col-sm-10">
                                         <img id="showImage" class="rounded avatar-lg"
-                                             src="{{ url('upload/no_image.jpg') }}" alt="About image cap">
+                                             src="{{
+                                            (!empty($portfolio->portfolio_image))?
+                                              url($portfolio->portfolio_image):
+                                              url('upload/no_image.jpg')
+                                        }}" alt="About image cap">
                                     </div>
                                 </div>
                                 <!-- end row -->
-                                <input class="btn btn-info waves-effect waves-light" type="submit" value="Insert Portfolio">
+                                <input class="btn btn-info waves-effect waves-light" type="submit" value="Update Portfolio">
                             </FORM>
                         </div>
                     </div>

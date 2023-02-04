@@ -20,10 +20,13 @@ class PortfolioController extends Controller
 
     public function AddPortfolio()
     {
-        $portfolio = Portfolio::latest()->get()[0];
-        //dd($portfolio->portfolio_name);
+        return view('admin.portfolio.portfolio_add');
+    }
+    public function EditPortfolio($id)
+    {
+        $portfolio = Portfolio::findOrFail($id); //dd($portfolio->portfolio_name);
         if ($portfolio==null) $portfolio = new Portfolio();
-        return view('admin.portfolio.portfolio_add', compact('portfolio'));
+        return view('admin.portfolio.portfolio_edit', compact('portfolio'));
     }
 
     public function StorePortfolio(Request $request)
@@ -42,7 +45,7 @@ class PortfolioController extends Controller
             . '.' . $image->getClientOriginalExtension();
         $save_url = 'upload/portfolio/' . $name_gen;
         Image::make($image)->resize(1020, 519)->save($save_url);
-        Portfolio::insert([  //findOrFail($slide_id)->update
+        Portfolio::insert([
             'portfolio_name' => $request->portfolio_name,
             'portfolio_title' => $request->portfolio_title,
             'portfolio_description' => $request->portfolio_description,
@@ -51,6 +54,34 @@ class PortfolioController extends Controller
         ]);
         $notification = array('message' => 'Portfolio inserted with Image Successfully',
             'alert-type' => 'success');
+        return redirect()->route('all.portfolio')->with($notification);
+    }
+    public function UpdatePortfolio(Request $request)
+    {
+        $portfolio_id = $request->id;
+        if ($request->file('portfolio_image')) {
+            $image = $request->file('portfolio_image');
+            $name_gen = hexdec(uniqid('', false))
+                . '.' . $image->getClientOriginalExtension();
+            $save_url = 'upload/portfolio/' . $name_gen;
+            Image::make($image)->resize(1020, 519)->save($save_url);
+            Portfolio::findOrFail($portfolio_id)->update([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_description' => $request->portfolio_description,
+                'portfolio_image' => $save_url,
+            ]);
+            $notification = array('message' => 'Portfolio inserted with Image Successfully',
+                'alert-type' => 'success');
+        } else {
+            Portfolio::findOrFail($portfolio_id)->update([
+                'portfolio_name' => $request->portfolio_name,
+                'portfolio_title' => $request->portfolio_title,
+                'portfolio_description' => $request->portfolio_description,
+            ]);
+            $notification = array('message' => 'Portfolio Updated without Image Successfully',
+                'alert-type' => 'error');
+            }
         return redirect()->route('all.portfolio')->with($notification);
     }
 }
