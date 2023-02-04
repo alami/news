@@ -28,6 +28,16 @@ class PortfolioController extends Controller
         if ($portfolio==null) $portfolio = new Portfolio();
         return view('admin.portfolio.portfolio_edit', compact('portfolio'));
     }
+    public function DeletePortfolio($id)
+    {
+        $portfolio = Portfolio::findOrFail($id);
+        $img = $portfolio->portfolio_image;
+        unlink($img);
+        Portfolio::findOrFail($id)->delete();
+        $notification = array('message' => 'Portfolio Deleted Successfully',
+            'alert-type' => 'error');
+        return redirect()->back()->with($notification);
+    }
 
     public function StorePortfolio(Request $request)
     {
