@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Home\AboutController;
 use App\Http\Controllers\Home\HomeSliderController;
 use App\Http\Controllers\Home\PortfolioController;
+use App\Http\Controllers\Home\BlogCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,16 @@ Route::controller(PortfolioController::class)->group(function (){
     Route::post('/update/portfolio/','UpdatePortfolio')->name('update.portfolio');
     Route::get('/delete/portfolio/{id}','DeletePortfolio')->name('delete.portfolio');
     Route::get('/portfolio/details/{id}','PortfolioDetails')->name('portfolio.details');
+});
+
+Route::controller(BlogCategoryController::class)->group(function (){
+    Route::get('/all/blog/category','AllBlogCategory')->name('all.blog.category');
+//    Route::get('/add/blog/category','AddPortfolio')->name('add.blog.category');
+//    Route::post('/store/blog/category/','StorePortfolio')->name('store.blog.category');
+    Route::get('/edit/blog/category/{id}','EditPortfolio')->name('edit.blog.category');
+//    Route::post('/update/blog/category/','UpdatePortfolio')->name('update.blog.category');
+    Route::get('/delete/blog/category/{id}','DeletePortfolio')->name('delete.blog.category');
+//    Route::get('/blog/category/details/{id}','PortfolioDetails')->name('blog.category.details');
 });
 
 
